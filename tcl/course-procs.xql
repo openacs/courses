@@ -11,7 +11,7 @@
 <fullquery name="course_catalog::get_item_id.get_item_from_name">
   <querytext>
         select item_id from cr_items
-        where name = :name and parent_id = :parent_id and content_type = :content_type
+        where name = :name and parent_id = :parent_id and content_type = 'course_catalog'
   </querytext>
 </fullquery>
 

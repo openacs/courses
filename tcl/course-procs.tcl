@@ -15,14 +15,15 @@ ad_proc -private course_catalog::get_folder_id { } {
 
 ad_proc -private course_catalog::get_item_id { 
     -name:required
-    -parent_id:required
-    -content_type:required
-} {
-    Returns the item_id in the CR with the name @name@ under folder_id @folder_id@
+    {-parent_id ""}
+ } {
+    Returns the item_id in the CR with the name @name@ under folder course_catalog
     @name@         The name of the item id in the CR
     @parent_id@    The folder_id where the item is stored
-    @content_type@ The content_type of the item
 } {
+    if { [string equal $parent_id ""] } {
+	set parent_id [course_catalog::get_folder_id]
+    }
 
     return [db_string get_item_from_name { } ]
 }
@@ -119,7 +120,7 @@ ad_proc -public course_catalog::delete_relation {
     -course_id:required
 } {
     Deletes the relation of course_catalog and dotrln class
-    @object_id The id of the object_id_one
+    @course_id The id of the object_id_one
 } {
     set rel_id [course_catalog::has_relation_rel_id -course_id $course_id]
     if { ![string equal $rel_id "0"] } {

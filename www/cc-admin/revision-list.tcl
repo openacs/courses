@@ -24,10 +24,11 @@ set context [list [list "/courses/cc-admin/course-list"  "[_ courses.course_list
 
 set asm_package_id [apm_package_id_from_key assessment]
 
-db_multirow -extend { asm_name class_name} course_list get_course_info {} {
+db_multirow -extend { asm_name class_name delete_p } course_list get_course_info {} {
     set asm_name [db_string get_asm_name { } -default "[_ courses.not_associated]"]
     set class_id [course_catalog::has_relation -course_id $course_id]
     set class_name [db_string get_class_info { } -default "[_ courses.not_associated]"]
+    set delete_p [course_catalog::check_live_latest -revision_id $course_id]
 }
 
 template::list::create \
@@ -42,7 +43,9 @@ template::list::create \
 	key {
 	    label "[_ courses.course_key]"
 	    display_template {
-	      <a href="delete-revision?revision_id=@course_list.course_id@&course_key=@course_list.course_key@"><img border=0 src="/resources/Delete16.gif"></a>
+	      <if @course_list.delete_p@ eq 1>
+ 	         <a href="delete-revision?revision_id=@course_list.course_id@&course_key=@course_list.course_key@"><img border=0 src="/resources/Delete16.gif"></a>
+		</if><else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</else>
 	      @course_list.course_key@
 	    }
 	}

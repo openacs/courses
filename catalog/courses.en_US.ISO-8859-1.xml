@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="courses" package_version="0.1d" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="courses" package_version="1.0d" locale="en_US" charset="ISO-8859-1">
 
   <msg key="add_course">Add Course</msg>
   <msg key="asm">Assessment</msg>
@@ -36,6 +36,10 @@
   <msg key="revisions">Revisions</msg>
   <msg key="revoke">Revoke</msg>
   <msg key="revoke_per">Revoke Permissions</msg>
+  <msg key="search_help">use only lower case and search for one first name or last name.</msg>
+  <msg key="search_u">Search Users</msg>
+  <msg key="search_user">Search User Name:</msg>
+  <msg key="search_user_email">Search for user Email:</msg>
   <msg key="see_all_rev">See All Revisions</msg>
   <msg key="subject_name">Subject Name</msg>
   <msg key="term_name">Term Name</msg>

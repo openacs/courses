@@ -3,10 +3,10 @@
 
 <fullquery name="get_course_info">      
       <querytext>
-            select course_id, course_key, course_name, course_info, assessment_id 
+            select course_id, course_key, course_name, course_info, assessment_id, item_id
 	    from course_catalog, cr_items
 	    where course_id = live_revision and  
-	    course_id in (
+	    item_id in (
 		select object_id from acs_permissions where grantee_id = :user_id and
 		privilege = 'admin')
          	

@@ -8,12 +8,13 @@
     <singleton-p>t</singleton-p>
     <auto-mount>courses</auto-mount>
 
-    <version name="0.1d" url="http://openacs.org/repository/download/apm/courses-0.1d.apm">
+    <version name="1.0d" url="http://openacs.org/repository/download/apm/courses-1.0d.apm">
         <owner url="mailto:miguelmarin@viaro.net">Miguel Marin</owner>
+        <release-date>2005-02-02</release-date>
         <vendor url="http://www.viaro.net">Viaro Networks</vendor>
         <maturity>0</maturity>
 
-        <provides url="courses" version="0.1d"/>
+        <provides url="courses" version="1.0d"/>
         <requires url="acs-content-repository" version="5.2.0d8"/>
         <requires url="acs-subsite" version="5.2.0d2"/>
         <requires url="assessment" version="0.10d5"/>

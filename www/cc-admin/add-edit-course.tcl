@@ -6,6 +6,7 @@ ad_page_contract {
 
 } {
     course_id:optional
+    mode:optional
     { return_url "" }
 }
 
@@ -13,27 +14,27 @@ if { [string equal $return_url ""]} {
     set return_url "/courses/cc-admin"
 }
 
-# To disable the element course_key
-if { [info exists course_id] } {
+set user_id [auth::get_user_id]
+set page_title ""
+set context ""
+
+if { [info exists mode] } {
+    # Check if users has admin permission to edit course_catalog
+    permission::require_permission -party_id $user_id -object_id $course_id -privilege "admin"
+    # To disable the element course_key
     set mode display
 } else {
     set mode edit
 }
 
-set user_id [auth::get_user_id]
-set page_title ""
-set context ""
-
-# Check if users has admin permission to edit course_catalog
-if { [info exists course_id] } {
-    permission::require_permission -party_id $user_id -object_id $course_id -privilege "admin"
-}
 
 # Get assessments
 set asm_package_id [apm_package_id_from_key assessment]
 set asm_list [list [list "[_ courses.not_associate]" "-1"]]
 db_foreach  assessment {} {
-    lappend asm_list [list $title $assessment_id]
+    if { [permission::permission_p -party_id $user_id -object_id $assessment_id -privilege "admin"] == 1 } {
+	lappend asm_list [list $title $assessment_id] 
+    }
 }
 
 # Get a list of all the attributes asociated to course_catalog
@@ -106,13 +107,13 @@ ad_form -extend -name add_course -new_data {
     # Set the new revision live
     course_catalog::set_live -name $course_key -revision_id $course_id
     # Grant admin privileges to the user over the item in the CR
-    permission::grant -party_id $user_id -object_id $course_id  -privilege "admin"
+    permission::grant -party_id $user_id -object_id $item_id  -privilege "admin"
 
 } -edit_data {
     
     # New revision in the CR
     set folder_id [course_catalog::get_folder_id]
-    set item_id [course_catalog::get_item_id -name $course_key -parent_id $folder_id -content_type "course_catalog"]
+    set item_id [course_catalog::get_item_id -name $course_key -parent_id $folder_id]
     set course_id [content::revision::new -item_id $item_id -title $course_key \
 		       -description "$course_name: $course_info"]
     
@@ -123,7 +124,7 @@ ad_form -extend -name add_course -new_data {
     # Set the new revision live
     course_catalog::set_live -name $course_key -revision_id $course_id
     # Grant admin privileges to the user over the item in the CR
-    permission::grant -party_id $user_id -object_id $course_id  -privilege "admin"
+    # permission::grant -party_id $user_id -object_id $course_id  -privilege "admin"
 
 } -new_request {
     set context [list "[_ courses.add_course]"]

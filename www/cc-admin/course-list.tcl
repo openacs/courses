@@ -38,7 +38,7 @@ template::list::create \
 	key {
 	    label "[_ courses.course_key]"
 	    display_template {
-		<a href=add-edit-course?course_id=@course_list.course_id@&return_url=$return_url \
+		<a href=add-edit-course?course_id=@course_list.course_id@&return_url=$return_url&mode=edit \
 		    title="[_ courses.new_ver]">\
 		    <img border=0 src=/resources/Edit16.gif></a>
 		<a href="revision-list?course_key=@course_list.course_key@&return_url=$return_url&course_id=@course_list.course_id@" title="[_ courses.see_all_rev]">@course_list.course_key@</a>

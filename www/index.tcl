@@ -9,6 +9,7 @@ ad_page_contract {
 set page_title "[_ courses.course_catalog]"
 set context ""
 set return_url "/courses/cc-admin/course-list"
+
 set cc_package_id [apm_package_id_from_key "courses"]
 
 set user_id [auth::get_user_id]
