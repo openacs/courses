@@ -14,7 +14,7 @@ set user_id [auth::get_user_id]
 set cc_package_id [apm_package_id_from_key "courses"]
 
 set page_title "[_ courses.search_u]"
-set context [list [list "courses/cc-admin/grant-list" "[_ courses.grant] [_ courses.course_list]"] "[_ courses.search_u]"]
+set context [list [list "/courses/cc-admin/grant-list" "[_ courses.grant] [_ courses.course_list]"] "[_ courses.search_u]"]
 if {[string equal $return_url ""]} {
     set return_url "/courses/admin/grant-list"
 }
