@@ -1,10 +1,10 @@
 <master>
 <property name=title>@page_title@</property>
 <property name="context">@context;noquote@</property>
- <a href="add-edit-course?return_url=@return_url@">#courses.new_course#</a>
+ <a href="course-add-edit?return_url=@return_url@">#courses.new_course#</a>
 <if @admin_p@ eq 1>
 | <a href="../admin/grant-list?return_url=@return_url@">#courses.grant_per#</a>
-| <a href="/categories/cadmin/one-object?object_id=@cc_package_id@">Categories</a>
+| <a href="/categories/cadmin/one-object?object_id=@cc_package_id@">#courses.admin_categories#</a>
 </if>
 <br><br>
 <multiple name="course_list">

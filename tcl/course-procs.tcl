@@ -229,3 +229,16 @@ ad_proc -private course_catalog::course_delete {
     } 
     content::item::delete -item_id $item_id
 }
+
+ad_proc -private course_catalog::get_categories_from_tree {
+    -tree_id:required
+} {
+    Returns a list of all objects associated to one category under tree_id
+    @tree_id@ The tree_id that holds the objects
+} {
+    set return_list ""
+    db_foreach get_categories { } {
+	lappend return_list "[list "$category_id" "$object_id"]"
+    }
+    return $return_list
+}

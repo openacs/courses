@@ -2,6 +2,7 @@
 <message_catalog package_key="courses" package_version="0.1a4" locale="en_US" charset="ISO-8859-1">
 
   <msg key="add_course_to">Add this course to one category.</msg>
+  <msg key="admin_categories">Manage Category Tree</msg>
   <msg key="and_has">and has</msg>
   <msg key="asm">Assessment</msg>
   <msg key="associate">Associate</msg>
@@ -11,6 +12,7 @@
   <msg key="associated">Already Associated</msg>
   <msg key="categories">Categories</msg>
   <msg key="categorize">Categorize</msg>
+  <msg key="categorized">Categorized Courses</msg>
   <msg key="class">Class</msg>
   <msg key="class_name">Class Name</msg>
   <msg key="com_name">Community Name:</msg>
@@ -75,6 +77,7 @@
   <msg key="title">Check/uncheck this row, and select an action to perform below</msg>
   <msg key="to">To</msg>
   <msg key="to_dotlrn">associations to dotLRN classes or communities</msg>
+  <msg key="uncategorized">Uncategorized Courses</msg>
   <msg key="user_name">User Name:</msg>
   <msg key="users_to_grant">users to grant permissions that match that search</msg>
   <msg key="version">Version</msg>

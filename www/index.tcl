@@ -21,4 +21,9 @@ if {[permission::permission_p -party_id $user_id -object_id $cc_package_id -priv
     set create_p 0
 }
 
-db_multirow course_list get_course_list { }
+set tree_id [db_string get_tree_id { } -default "-1"]
+
+
+
+
+ 

@@ -3,7 +3,7 @@
    <td>
    <if @edit@ eq yes>
    <div align="right">
-	<a href=add-edit-course?course_id=@course_id@&return_url=@return_url@&mode=edit \
+	<a href=course-add-edit?course_id=@course_id@&return_url=@return_url@&mode=edit \
 	title="#courses.new_ver#"><img border=0 src=/resources/Edit16.gif></a>
    </div>
    </if>

@@ -60,13 +60,31 @@ ad_proc -private courses::package_install {
 	-sort_order 4 \
 	-column_spec "integer"
 
+    # To store the courses in the content repository
     set folder_id [content::folder::new -name "Course Catalog" -label "Course Catalog"]
     content::folder::register_content_type -folder_id $folder_id -content_type "course_catalog" 
-
+    
+    # To associate one course to dotlrn class
     rel_types::new -role_one c_catalog_role -role_two dotlrn_class_role course_catalog_class_rel \
 	"Course Catalog Class" "Course Catalog Class" course_catalog 0 1 dotlrn_class_instance 0 1
+    # To associate one course to dotrln community
     rel_types::new -role_one c_catalog_role -role_two dotlrn_com_role course_catalog_dotcom_rel \
 	"Course Catalog Community" "Course Catalog Community" course_catalog 0 1 dotlrn_club 0 1
+}
+
+
+ad_proc -private courses::package_mount {
+    -package_id
+    -node_id
+} {
+    create the category tree for dotlrn catalog
+    
+    @author Miguel Marin (miguelmarin@viaro.net) Viaro Networks (www.viaro.net)
+    @creation-date 11-02-2005
+} {
+    # To categorize courses
+    set tree_id [category_tree::add -name "dotlrn-course-catalog"]
+    category_tree::map -tree_id $tree_id -object_id $package_id -assign_single_p "t"
 }
 
 ad_proc -private courses::package_uninstall {

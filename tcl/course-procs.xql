@@ -133,4 +133,13 @@
       </querytext>
 </fullquery>
 
+<fullquery name="course_catalog::get_categories_from_tree.get_categories">
+      <querytext>
+	   select om.category_id, om.object_id from category_object_map om where
+	   om.category_id in (select category_id from categories where tree_id =:tree_id)
+	   and om.object_id in (select live_revision from cr_items where content_type = 'course_catalog')
+      </querytext>
+</fullquery>
+
+
 </queryset>

@@ -1,12 +1,11 @@
 <?xml version="1.0"?>
 <queryset>
 
-<fullquery name="get_course_list">      
+<fullquery name="get_tree_id">      
       <querytext>
-            select cc.course_id, cc.course_key, cc.course_name, cc.course_info, cc.assessment_id, ci.item_id
-	    from course_catalog cc, cr_items ci
- 	    where cc.course_id = ci.live_revision
+      	    select tree_id from category_tree_map where object_id = :cc_package_id
       </querytext>
 </fullquery>
+
 
 </queryset>

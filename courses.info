@@ -22,6 +22,7 @@
 
         <callbacks>
             <callback type="after-install"  proc="courses::package_install"/>
+            <callback type="after-mount"  proc="courses::package_mount"/>
             <callback type="before-uninstall"  proc="courses::package_uninstall"/>
         </callbacks>
         <parameters>

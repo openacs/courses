@@ -120,7 +120,7 @@ ad_form -extend -name add_course -validate {
     
     set revision_id [db_string get_revision_id { } -default "-1"]
     if { ![string equal $category_ids "-1"] } {
-	category::map_object -remove_old -object_id $revision_id $category_ids
+	category::map_object -object_id $revision_id $category_ids
     }
 } -edit_data {
     # New revision in the CR
@@ -138,7 +138,7 @@ ad_form -extend -name add_course -validate {
     # Set the new revision live  
     course_catalog::set_live -revision_id $course_id
     if { ![string equal $category_ids "-1"] } {
-	category::map_object -remove_old -object_id $course_id $category_ids
+	category::map_object -object_id $course_id $category_ids
     }
 } -new_request {
     set context [list [list course-list "[_ courses.course_list]"] "[_ courses.new_course]"]
