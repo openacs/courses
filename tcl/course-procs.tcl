@@ -154,15 +154,12 @@ ad_proc -private course_catalog::delete_row {
 }
 
 ad_proc -private course_catalog::delete_relation {
-    -course_id:required
+    -rel_id:required
 } {
-    Deletes the relation of course_catalog and dotrln class
-    @course_id The id of the object_id_one
+    Deletes the relation of course_catalog and dotrln class or community
+    @rel_id The id of the realtion
 } {
-    set rel_id [course_catalog::has_relation_rel_id -course_id $course_id]
-    if { ![string equal $rel_id "0"] } {
-	db_exec_plsql remove_relation { }
-    }
+    db_exec_plsql remove_relation { }
 }
 
 ad_proc -private course_catalog::grant_permissions {
@@ -205,4 +202,30 @@ ad_proc -private course_catalog::revoke_permissions {
 	    permission::revoke -party_id $party_id -object_id $assessment_id  -privilege "admin"
 	}
     }
+}
+
+ad_proc -private course_catalog::check_rev_assoc {
+    -item_id:required
+} {
+    Returns a list with number of revisions, number of associations to item_id
+    @item_id@ The item_id to check
+} {
+    set rev_num [db_string revision_count { } -default 0]
+    set assoc_num [db_string association_count { } -default 0]
+    set return_list [list]
+    lappend return_list $rev_num
+    lappend return_list $assoc_num
+    return $return_list
+}
+
+ad_proc -private course_catalog::course_delete {
+    -item_id:required
+} {
+    Deletes item_id and all the associations to that item_id (revisions, relations)
+    @item_id@ The item_id to delete
+} {
+    db_foreach relation { } {
+	course_catalog::delete_relation -rel_id $rel_id
+    } 
+    content::item::delete -item_id $item_id
 }

@@ -32,29 +32,42 @@
     <td>
 	<if @rel@ eq 0>
 	   #courses.no# 
-	  <if @edit@ eq yes>
+	  <if @edit@ eq "yes">
 	     <if @dotlrn_url@ eq "/dotlrn">
              (<a href="dotlrn-list?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@" title="#courses.associate_this#"><i>#courses.associate#</i></a>)</if>
           </if>
 	</if>
 	<else>
-	   #courses.yes# (<a href="watch-association?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@" title="#courses.watch_assoc#"><i>#courses.watch#</i></a>)
+	   <if @index@ eq "yes">
+	       #courses.yes# (<a href="cc-admin/watch-association?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@&course_name=@name@" title="#courses.watch_assoc#"><i>#courses.watch#</i></a>)
+	   </if>
+	   <else>
+	       #courses.yes# (<a href="watch-association?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@" title="#courses.watch_assoc#"><i>#courses.watch#</i></a>)
+	   </else>
 	</else>
     </td>
 </tr>
 <tr><td></td><td></td>
 <td>
    <if @edit@ eq no>
-      <if @course_id@ eq @live_revision@>
-	   <img border=0 src="/courses/images/live.gif">   
+      <if @index@ eq "yes">
+	<if @asmid@ gt "-1">
+	    <a class="button" href="/assessment/assessment?assessment_id=@asmid@">#courses.enroll#</a>
+	</if>
       </if>
       <else>
-	   <a href="go-live?course_key=@course_key@&revision_id=@course_id@" title="#courses.make_live#"><img border=0 src="/courses/images/golive.gif"></a>
+         <if @course_id@ eq @live_revision@>
+	     <img border=0 src="/courses/images/live.gif">   
+         </if>
+         <else>
+	     <a href="go-live?course_key=@course_key@&revision_id=@course_id@" title="#courses.make_live#"><img border=0 src="/courses/images/golive.gif"></a>
+         </else>
       </else>
    </if>
    <else>
-	<a class=button href="grant-user-list?object_id=@item_id@&creation_user=@creation_user@&course_key=@course_key@">#courses.manage_per#</a>
+	<a class=button href="grant-user-list?object_id=@item_id@&creation_user=@creation_user@&course_key=@course_key@" title="#courses.grantrevoke#">#courses.manage_per#</a>
+        <a class=button href="course-delete?object_id=@item_id@&creation_user=@creation_user@&course_key=@course_key@" title="#courses.delete_this#">#courses.delete#</a></td>
    </else>
-</td></tr>
+</tr>
 </table>
 <br>

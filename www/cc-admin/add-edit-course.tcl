@@ -109,7 +109,6 @@ ad_form -extend -name add_course -validate {
     permission::grant -party_id $user_id -object_id $item_id  -privilege "admin"
 
 } -edit_data {
-    
     # New revision in the CR
     set folder_id [course_catalog::get_folder_id]
     set item_id [course_catalog::get_item_id -revision_id $course_id]

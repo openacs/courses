@@ -3,10 +3,10 @@
 
 <fullquery name="get_course_info">      
       <querytext>
-            select course_id, course_key, course_name, course_info, assessment_id, item_id
-	    from course_catalog, cr_items
-	    where course_id = live_revision and  
-	    item_id in (
+            select cc.course_id, cc.course_key, cc.course_name, cc.course_info, cc.assessment_id, ci.item_id
+	    from course_catalog cc, cr_items ci
+ 	    where cc.course_id = ci.live_revision and  
+	    ci.item_id in (
 		select object_id from acs_permissions where grantee_id = :user_id and
 		privilege = 'admin')
          	
@@ -15,9 +15,9 @@
 
 <fullquery name="get_course_info_site_wide">      
       <querytext>
-            select course_id, course_key, course_name, course_info, assessment_id 
-	    from course_catalog, cr_items
-	    where course_id = live_revision          	
+            select cc.course_id, cc.course_key, cc.course_name, cc.course_info, cc.assessment_id, ci.item_id
+	    from course_catalog cc, cr_items ci
+ 	    where cc.course_id = ci.live_revision
       </querytext>
 </fullquery>
 

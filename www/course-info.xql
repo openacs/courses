@@ -3,10 +3,9 @@
 
 <fullquery name="get_course_info">      
       <querytext>
-	    select cc.course_id, cc.course_key, cc.course_name, cc.course_info, cc.assessment_id, ci.live_revision
-	    from course_catalog cc, cr_items ci
-	    where ci.item_id = :item_id and 
-	    cc.course_id in (select revision_id from cr_revisions where item_id = :item_id )
+            select cc.course_info, cc.assessment_id, cr.item_id
+	    from course_catalog cc, cr_revisions cr
+ 	    where cr.revision_id = :course_id and cc.course_id = :course_id
       </querytext>
 </fullquery>
 
@@ -20,12 +19,5 @@
       </querytext>
 </fullquery>
 
-    <fullquery name="get_class_info">
-        <querytext>
-            select pretty_name, url
-	    from dotlrn_class_instances_full 
-	    where class_instance_id = :class_id
-        </querytext>
-    </fullquery>
 
 </queryset>

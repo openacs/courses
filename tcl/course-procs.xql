@@ -113,9 +113,24 @@
       </querytext>
 </fullquery>
 
+<fullquery name="course_catalog::check_rev_assoc.revision_count">
+      <querytext>
+	    select count(revision_id) from cr_revisions where item_id = :item_id
+      </querytext>
+</fullquery>
+
+<fullquery name="course_catalog::check_rev_assoc.association_count">
+      <querytext>
+	    select count(rel_id) from acs_rels where object_id_one in (
+		select revision_id from cr_revisions where item_id = :item_id )
+      </querytext>
+</fullquery>
+
+<fullquery name="course_catalog::course_delete.relation">
+      <querytext>
+	    select rel_id from acs_rels where object_id_one in (
+		select revision_id from cr_revisions where item_id = :item_id )
+      </querytext>
+</fullquery>
 
 </queryset>
-
-
-
-

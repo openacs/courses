@@ -8,3 +8,10 @@ ad_page_contract {
 }
 
 set dotlrn_url [dotlrn::get_url]
+if { ![info exists index] } {
+    set index ""
+}
+
+if { ![info exists asmid] } {
+    set asmid "-1"
+}
