@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="courses" package_version="0.1a3" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="courses" package_version="0.1a4" locale="en_US" charset="ISO-8859-1">
 
+  <msg key="add_course_to">Add this course to one category.</msg>
   <msg key="and_has">and has</msg>
   <msg key="asm">Assessment</msg>
   <msg key="associate">Associate</msg>
@@ -8,6 +9,8 @@
   <msg key="associate_to_class">Associate to this class</msg>
   <msg key="associate_to_com">Associate to this community</msg>
   <msg key="associated">Already Associated</msg>
+  <msg key="categories">Categories</msg>
+  <msg key="categorize">Categorize</msg>
   <msg key="class">Class</msg>
   <msg key="class_name">Class Name</msg>
   <msg key="com_name">Community Name:</msg>
@@ -40,7 +43,7 @@
   <msg key="grant_to_others">Grant permissions to other users</msg>
   <msg key="granted">Granted</msg>
   <msg key="grantrevoke">Grant/Revoke</msg>
-  <msg key="has_no">and has No associations to dotLRN class or community</msg>
+  <msg key="has_no">and has &lt;b&gt;No&lt;/b&gt; associations to dotLRN class or community</msg>
   <msg key="has_one">has one association to dotLRN class or community</msg>
   <msg key="is_assoc">is associated to:</msg>
   <msg key="label_title">Check/uncheck all rows</msg>

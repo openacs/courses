@@ -1,6 +1,5 @@
 ad_page_contract {
     Shows all associations that course_id has
-    
     @author          Miguel Marin (miguelmarin@viaro.net)
     @author          Viaro Networks www.viaro.net
     @creation date   28-01-2005

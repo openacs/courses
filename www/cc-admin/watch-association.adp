@@ -3,7 +3,7 @@
 <property name="context">@context;noquote@</property>
 
 
-<h2>@course_key;noquote@ #courses.is_assoc#</h2>
+<h2>@course_key;noquote@ (@course_name@) #courses.is_assoc#</h2>
 
 <multiple name="relations">
     <if @relations.type@ eq "course_catalog_class_rel">

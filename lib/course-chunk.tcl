@@ -15,3 +15,5 @@ if { ![info exists index] } {
 if { ![info exists asmid] } {
     set asmid "-1"
 }
+
+set category_p [db_string get_category { } -default -1]

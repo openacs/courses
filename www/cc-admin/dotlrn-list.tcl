@@ -8,6 +8,7 @@ ad_page_contract {
     course_id:notnull
     { course_key ""}
     { return_url "" }
+    { course_name ""}
 }
 
 set page_title "[_ courses.dotlrn_list]"

@@ -34,7 +34,7 @@
 	   #courses.no# 
 	  <if @edit@ eq "yes">
 	     <if @dotlrn_url@ eq "/dotlrn">
-             (<a href="dotlrn-list?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@" title="#courses.associate_this#"><i>#courses.associate#</i></a>)</if>
+             (<a href="dotlrn-list?course_id=@course_id@&course_key=@course_key@&course_name=@name@&return_url=@return_url@" title="#courses.associate_this#"><i>#courses.associate#</i></a>)</if>
           </if>
 	</if>
 	<else>
@@ -42,7 +42,7 @@
 	       #courses.yes# (<a href="cc-admin/watch-association?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@&course_name=@name@" title="#courses.watch_assoc#"><i>#courses.watch#</i></a>)
 	   </if>
 	   <else>
-	       #courses.yes# (<a href="watch-association?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@" title="#courses.watch_assoc#"><i>#courses.watch#</i></a>)
+	       #courses.yes# (<a href="watch-association?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@&course_name=@name@" title="#courses.watch_assoc#"><i>#courses.watch#</i></a>)
 	   </else>
 	</else>
     </td>
@@ -66,7 +66,11 @@
    </if>
    <else>
 	<a class=button href="grant-user-list?object_id=@item_id@&creation_user=@creation_user@&course_key=@course_key@" title="#courses.grantrevoke#">#courses.manage_per#</a>
-        <a class=button href="course-delete?object_id=@item_id@&creation_user=@creation_user@&course_key=@course_key@" title="#courses.delete_this#">#courses.delete#</a></td>
+         <a class=button href="course-delete?object_id=@item_id@&creation_user=@creation_user@&course_key=@course_key@" title="#courses.delete_this#">#courses.delete#</a>
+	<if @category_p@ eq "-1">
+	   <a class=button href="course-categorize?course_id=@course_id@&name=@name@">#courses.categorize#</a>
+	</if>
+   </td>
    </else>
 </tr>
 </table>

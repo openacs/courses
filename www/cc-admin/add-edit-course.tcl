@@ -29,6 +29,8 @@ if { [info exists mode] } {
     set mode edit
 }
 
+set cc_package_id [apm_package_id_from_key "courses"]
+
 # Get assessments
 set asm_package_id [apm_package_id_from_key assessment]
 set asm_list [list [list "[_ courses.not_associate]" "-1"]]
@@ -86,6 +88,14 @@ ad_form -name add_course -export {return_url $return_url } -form {
 
 ad_form -extend -name add_course -form $elements
 
+ad_form -extend -name add_course -form {
+    {category_ids:integer(category),multiple,optional
+	{label "[_ courses.categories]"}
+	{html {size 4}}
+	{value "-1"}
+    }
+}
+
 ad_form -extend -name add_course -validate {
     { course_key
 	{ [course_catalog::check_name -name $course_key] }
@@ -107,7 +117,11 @@ ad_form -extend -name add_course -validate {
 
     # Grant admin privileges to the user over the item in the CR
     permission::grant -party_id $user_id -object_id $item_id  -privilege "admin"
-
+    
+    set revision_id [db_string get_revision_id { } -default "-1"]
+    if { ![string equal $category_ids "-1"] } {
+	category::map_object -remove_old -object_id $revision_id $category_ids
+    }
 } -edit_data {
     # New revision in the CR
     set folder_id [course_catalog::get_folder_id]
@@ -119,12 +133,13 @@ ad_form -extend -name add_course -validate {
 	lappend form_attributes [list $attr_name [set $attr_name]]
     }
 
-    set course_id [content::revision::new -item_id $item_id -attributes $form_attributes]
+    set course_id [content::revision::new -item_id $item_id -attributes $form_attributes -content_type "course_catalog"]
 
     # Set the new revision live  
     course_catalog::set_live -revision_id $course_id
-
-
+    if { ![string equal $category_ids "-1"] } {
+	category::map_object -remove_old -object_id $course_id $category_ids
+    }
 } -new_request {
     set context [list [list course-list "[_ courses.course_list]"] "[_ courses.new_course]"]
     set page_title "[_ courses.new_course]"

@@ -26,5 +26,11 @@
       </querytext>
 </fullquery>
 
+<fullquery name="get_revision_id">      
+      <querytext>
+            select revision_id from cr_revisions where item_id = :item_id
+      </querytext>
+</fullquery>
+
 
 </queryset>
