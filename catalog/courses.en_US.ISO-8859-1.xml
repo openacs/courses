@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="courses" package_version="0.1d" locale="en_US" charset="ISO-8859-1">
+
+  <msg key="add_course">Add Course</msg>
+  <msg key="asm">Assessment</msg>
+  <msg key="associate">Associate</msg>
+  <msg key="associate_this">Associate this course</msg>
+  <msg key="associate_to_class">Associate to this class</msg>
+  <msg key="class_name">Class Name</msg>
+  <msg key="course_admin">Course Administration</msg>
+  <msg key="course_catalog">Course Catalog Index</msg>
+  <msg key="course_info">Course Info:</msg>
+  <msg key="course_key">Course Key:</msg>
+  <msg key="course_list">Course List</msg>
+  <msg key="course_name">Course Name:</msg>
+  <msg key="courses">Courses</msg>
+  <msg key="create_new_ver">Create a new version of</msg>
+  <msg key="dep_name">Department Name</msg>
+  <msg key="description">Description</msg>
+  <msg key="dotlrn">DotLRN</msg>
+  <msg key="dotlrn_list">DotLRN List</msg>
+  <msg key="email">Email:</msg>
+  <msg key="grant">Grant</msg>
+  <msg key="grant_list">Grant List</msg>
+  <msg key="grant_per">Grant Permissions</msg>
+  <msg key="granted">Granted</msg>
+  <msg key="is_assoc">is associated to:</msg>
+  <msg key="make_live">Make This Course Live</msg>
+  <msg key="new_ver">New Course Version</msg>
+  <msg key="no">No</msg>
+  <msg key="not_allowed">Not Allowed</msg>
+  <msg key="not_associate">Not Associate</msg>
+  <msg key="not_associated">Not Associated</msg>
+  <msg key="permission">Permission:</msg>
+  <msg key="rev_list">Revision List</msg>
+  <msg key="revisions">Revisions</msg>
+  <msg key="revoke">Revoke</msg>
+  <msg key="revoke_per">Revoke Permissions</msg>
+  <msg key="see_all_rev">See All Revisions</msg>
+  <msg key="subject_name">Subject Name</msg>
+  <msg key="term_name">Term Name</msg>
+  <msg key="to">To</msg>
+  <msg key="user_name">User Name:</msg>
+  <msg key="users_to_grant">Users To Grant Permissions</msg>
+  <msg key="watch">Watch</msg>
+  <msg key="watch_assoc">Watch Association</msg>
+  <msg key="yes">Yes</msg>
+</message_catalog>
