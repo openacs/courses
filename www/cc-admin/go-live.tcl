@@ -1,7 +1,8 @@
 ad_page_contract {
     Makes one revision live
 
-    @author          Miguel Marin (miguelmarin@viaro.net) Viaro Networks (www.viaro.net)
+    @author          Miguel Marin (miguelmarin@viaro.net) 
+    @author          Viaro Networks www.viaro.net
     @creation date   29-01-2005
 } {
     course_key:notnull

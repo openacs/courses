@@ -1,7 +1,8 @@
 ad_page_contract {
     Displays a list of all dotlrn classes to associate to a course_catalog(course_id)
 
-    @author          Miguel Marin (miguelmarin@viaro.net) Viaro Networks (www.viaro.net)
+    @author          Miguel Marin (miguelmarin@viaro.net) 
+    @author          Viaro Networks www.viaro.net
     @creation date   31-01-2005
 } {
     course_id:notnull

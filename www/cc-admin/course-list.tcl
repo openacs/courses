@@ -1,8 +1,8 @@
 ad_page_contract {
     Displays a list of all courses
-
-    @author          Miguel Marin (miguelmarin@viaro.net) Viaro Networks (www.viaro.net)
-    @creation date   28-01-2005
+    @author          Miguel Marin (miguelmarin@viaro.net) 
+    @author          Viaro Networks www.viaro.net
+    @creation-date   28-01-2005
 } {
 
 }

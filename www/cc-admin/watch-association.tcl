@@ -2,7 +2,8 @@ ad_page_contract {
     Displays a information about course_catalog(course_id) and dotlrn_class_instance
     list of all revisions for one course
 
-    @author          Miguel Marin (miguelmarin@viaro.net) Viaro Networks (www.viaro.net)
+    @author          Miguel Marin (miguelmarin@viaro.net)
+    @author          Viaro Networks www.viaro.net
     @creation date   28-01-2005
 } {
     { return_url "" }

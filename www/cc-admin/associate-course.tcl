@@ -1,7 +1,8 @@
 ad_page_contract {
     Associates course_catalog's course_id with dotlrn's class_instance_id
 
-    @author          Miguel Marin (miguelmarin@viaro.net) Viaro Networks (www.viaro.net)
+    @author          Miguel Marin (miguelmarin@viaro.net) 
+    @author          Viaro Networks www.viaro.net
     @creation date   31-01-2005
 } {
     course_id:notnull

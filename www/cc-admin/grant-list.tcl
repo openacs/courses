@@ -1,7 +1,8 @@
 ad_page_contract {
     Displays a list of all courses to grant permission
 
-    @author          Miguel Marin (miguelmarin@viaro.net) Viaro Networks (www.viaro.net)
+    @author          Miguel Marin (miguelmarin@viaro.net) 
+    @author          Viaro Networks www.viaro.net
     @creation date   28-01-2005
 } {
 
@@ -16,14 +17,17 @@ set asm_package_id [apm_package_id_from_key assessment]
 
 if { [acs_user::site_wide_admin_p] } {
     set query get_course_info_site_wide
+    set site_wide 1
 } else {
     set query get_course_info
+    set site_wide 0
 }
 
 
-db_multirow -extend { asm_name item_id } course_list $query {} {
+db_multirow -extend { asm_name item_id creation_user } course_list $query {} {
     set asm_name [db_string get_asm_name { } -default "[_ courses.not_associated]"]
     set item_id [course_catalog::get_item_id -name $course_key]
+    set creation_user [course_catalog::get_creation_user -object_id $item_id]
 }
 
 template::list::create \
@@ -54,9 +58,21 @@ template::list::create \
 	    }
 	}
 	permission {
-	    label "[_ courses.grant]"
+	    label "[_ courses.grant_per]"
 	    display_template {
-		<a href="grant-user-list?object_id=@course_list.item_id@">Grant</a>
+		<div align=center>
+		<if @course_list.creation_user@ eq $user_id>
+		    <a href="grant-user-list?object_id=@course_list.item_id@&creation_user=@course_list.creation_user@&course_key=@course_list.course_key@">Grant</a>
+		</if>
+		<else>
+		    <if $site_wide eq 1>
+		       <a href="grant-user-list?object_id=@course_list.item_id@&creation_user=@course_list.creation_user@&course_key=@course_list.course_key@" title="\#courses.grant_to_others\#">Grant</a>
+		    </if>
+		    <else>
+		       #courses.not_allowed#
+		    </else>
+		</else>
+		</div>
 	    }
 	}
     }

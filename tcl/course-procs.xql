@@ -15,6 +15,14 @@
   </querytext>
 </fullquery>
 
+<fullquery name="course_catalog::get_creation_user.get_creation_user">
+  <querytext>
+        select creation_user from acs_objects
+        where object_id = :object_id
+  </querytext>
+</fullquery>
+
+
 <fullquery name="course_catalog::set_live.set_live_revision">      
       <querytext>
             update cr_items
@@ -69,6 +77,24 @@
 <fullquery name="course_catalog::check_live_latest.check_latest">      
       <querytext>
 	   select 1 from cr_items where latest_revision = :revision_id
+      </querytext>
+</fullquery>
+
+<fullquery name="course_catalog::grant_permissions.assessment">
+      <querytext>
+            select ci.item_id as assessment_id from
+            cr_folders cf, cr_items ci, cr_revisions cr, as_assessments a
+            where cr.revision_id = ci.latest_revision and a.assessment_id = cr.revision_id and
+            ci.parent_id = cf.folder_id and cf.package_id = :asm_package_id 
+      </querytext>
+</fullquery>
+
+<fullquery name="course_catalog::revoke_permissions.assessment">
+      <querytext>
+            select ci.item_id as assessment_id from
+            cr_folders cf, cr_items ci, cr_revisions cr, as_assessments a
+            where cr.revision_id = ci.latest_revision and a.assessment_id = cr.revision_id and
+            ci.parent_id = cf.folder_id and cf.package_id = :asm_package_id 
       </querytext>
 </fullquery>
 

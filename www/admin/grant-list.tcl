@@ -1,10 +1,14 @@
 ad_page_contract {
-    Displays a list of all proffesors from dotlrn
+    Displays a list of all users to grant permissions
 
-    @author          Miguel Marin (miguelmarin@viaro.net) Viaro Networks (www.viaro.net)
-    @creation date   28-01-2005
+    @author          Miguel Marin (miguelmarin@viaro.net) 
+    @author          Viaro Networks www.viaro.net
+    @creation-date   28-01-2005
 } {
     { return_url "" }
+    { user_name "" }
+    { user_email "" }
+
 }
 
 set user_id [auth::get_user_id]
@@ -17,7 +21,33 @@ if {[string equal $return_url ""]} {
 }
 
 set context [list $page_title]
-db_multirow -extend { privilege email } grant_list select_users {} {
+
+# To search for users
+ad_form -name search_user -form {
+    {user_name:text(text),optional
+	{label "[_ courses.search_user]"}
+	{help_text "[_ courses.search_help]"}
+    }
+    {user_email:text(text),optional
+	{label "[_ courses.search_user_email]"}
+    }
+}
+
+
+# Establish what query to use in order to the values of the form elements
+if {![string equal $user_name ""]} {
+    set query select_users_name
+    if {![string equal $user_email ""]} {
+	set query select_users_name_email
+    }
+} else {
+    set query select_users
+    if {![string equal $user_email ""]} {
+	    set query select_users_email
+    }
+}
+
+db_multirow -extend { privilege email } grant_list $query {} {
     set privilege [permission::permission_p -party_id $p_user_id -object_id $cc_package_id -privilege "create"]
     set email [email_image::get_user_email -user_id $p_user_id]
 }
@@ -30,6 +60,8 @@ template::list::create \
 		       "\#courses.revoke\#" "revoke-users?" "\#courses.revoke_per\#" }\
     -bulk_action_method post \
     -bulk_action_export_vars {
+	user_name
+	user_email
     }\
     -row_pretty_plural "[_ courses.users_to_grant]" \
     -elements {

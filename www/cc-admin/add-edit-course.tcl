@@ -1,8 +1,9 @@
 ad_page_contract {
     Displays a form to add a course or add a new revision of a course (edit)
 
-    @author          Miguel Marin (miguelmarin@viaro.net) Viaro Networks (www.viaro.net)
-    @creation date   27-01-2005
+    @author          Miguel Marin (miguelmarin@viaro.net) 
+    @author          Viaro Networks www.viaro.net
+    @creation-date   27-01-2005
 
 } {
     course_id:optional
@@ -27,11 +28,10 @@ if { [info exists mode] } {
     set mode edit
 }
 
-
 # Get assessments
 set asm_package_id [apm_package_id_from_key assessment]
 set asm_list [list [list "[_ courses.not_associate]" "-1"]]
-db_foreach  assessment {} {
+db_foreach assessment { } {
     if { [permission::permission_p -party_id $user_id -object_id $assessment_id -privilege "admin"] == 1 } {
 	lappend asm_list [list $title $assessment_id] 
     }
@@ -96,7 +96,8 @@ foreach item $elements {
 ad_form -extend -name add_course -new_data {
     # New item and revision in the CR
     set folder_id [course_catalog::get_folder_id]
-    set item_id [content::item::new -name $course_key -parent_id $folder_id -content_type "course_catalog"]
+    set item_id [content::item::new -name $course_key -parent_id $folder_id \
+		     -content_type "course_catalog" -creation_user $user_id]
     set course_id [content::revision::new -item_id $item_id -title $course_key \
 			 -description "$course_name: $course_info"]
 
