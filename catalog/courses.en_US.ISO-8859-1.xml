@@ -4,9 +4,15 @@
   <msg key="add_course">Add Course</msg>
   <msg key="asm">Assessment</msg>
   <msg key="associate">Associate</msg>
+  <msg key="associate_more">Associate more classes or communities</msg>
   <msg key="associate_this">Associate this course</msg>
   <msg key="associate_to_class">Associate to this class</msg>
+  <msg key="associate_to_com">Associate to this community</msg>
+  <msg key="associated">Already Associated</msg>
+  <msg key="class">Class</msg>
   <msg key="class_name">Class Name</msg>
+  <msg key="com_name">Community Name:</msg>
+  <msg key="community">Community</msg>
   <msg key="course_admin">Course Administration</msg>
   <msg key="course_catalog">Course Catalog Index</msg>
   <msg key="course_info">Course Info:</msg>
@@ -26,6 +32,7 @@
   <msg key="grant_to_others">Grant permissions to other users</msg>
   <msg key="granted">Granted</msg>
   <msg key="is_assoc">is associated to:</msg>
+  <msg key="label_title">Check/uncheck all rows</msg>
   <msg key="make_live">Make This Course Live</msg>
   <msg key="new_ver">New Course Version</msg>
   <msg key="no">No</msg>
@@ -46,6 +53,7 @@
   <msg key="see_all_rev">See All Revisions</msg>
   <msg key="subject_name">Subject Name</msg>
   <msg key="term_name">Term Name</msg>
+  <msg key="title">Check/uncheck this row, and select an action to perform below</msg>
   <msg key="to">To</msg>
   <msg key="user_name">User Name:</msg>
   <msg key="users_to_grant">users to grant permissions that match that search</msg>

@@ -6,14 +6,16 @@ ad_page_contract {
     @creation date   31-01-2005
 } {
     course_id:notnull
-    class_id:notnull
+    object_id:multiple
     { return_url ""}
 }
 
-course_catalog::add_relation -course_id $course_id -class_id $class_id
+foreach object $object_id {
+    course_catalog::add_relation -course_id $course_id -class_id $object
+}
 
 if { [string equal $return_url ""] } {
-    ad_returnredirect "/courses/cc-admin/dotlrn-list"
+    ad_returnredirect "/courses/cc-admin/dotlrn-list?course_id=$course_id"
 } else {
     ad_returnredirect "$return_url"
 }

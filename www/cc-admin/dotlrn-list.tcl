@@ -23,20 +23,41 @@ set context [list [list "/courses/cc-admin/course-list"  "[_ courses.course_list
 
 set asm_package_id [apm_package_id_from_key assessment]
 
-db_multirow classes_list get_dotlrn_classes {}
+db_multirow -extend { rel } classes_list get_dotlrn_classes {} {
+    set rel [course_catalog::has_relation -course_id $object_id]
+}
 
 template::list::create \
     -name dotlrn_classes \
     -multirow classes_list \
-    -key class_id \
+    -key object_id \
+    -has_checkboxes\
+    -bulk_actions {"\#courses.associate\#" "associate-course" "\#courses.associate_to_class\#" }\
     -bulk_action_method post \
-    -bulk_action_export_vars {}\
+    -bulk_action_export_vars {
+	course_id
+    }\
     -row_pretty_plural "[_ courses.dotlrn_classes]" \
     -elements {
+	check_box {
+	    class "list-narrow"
+	    label "<input type=\"checkbox\" name=\"_dummy\" onclick=\"acs_ListCheckAll('dotlrn_classes', this.checked)\" \
+                   title=\"\#courses.label_title\#\">"
+	    display_template {
+		<if @classes_list.rel@ eq 0>
+		    <input type="checkbox" name="object_id" value="@classes_list.object_id@" \
+		    id="dotlrn_classes,@classes_list.object_id@" \
+		    title="\#courses.title\#">
+		</if>
+		<else>
+		    <input type="checkbox" checked disabled>
+		</else>
+	    }
+	}
 	class  {
 	    label "[_ courses.class_name]"
 	    display_template {
-		    <a href="@classes_list.url@">@classes_list.pretty_name@</a>
+		<a href="@classes_list.url@">@classes_list.pretty_name@</a> 
 	    }
 	}
 	dep_name {
@@ -59,7 +80,60 @@ template::list::create \
 	}
 	associate {
 	    display_template {
-		<a href="associate-course?course_id=$course_id&class_id=@classes_list.class_id@&return_url=$return_url" title="\#courses.associate_to_class\#\">#courses.associate#</a>
+		<if @classes_list.rel@ eq 0>
+		<a href="associate-course?course_id=$course_id&object_id=@classes_list.object_id@&return_url=$return_url" title="\#courses.associate_to_class\#\">#courses.associate#</a>
+		</if>
+		<else>
+		#courses.associated#
+                </else>
+	    }
+	}
+    }
+
+db_multirow -extend { rel } com_list get_dotlrn_communities { } {
+    set rel [course_catalog::com_has_relation -community_id $object_id]
+}
+
+template::list::create \
+    -name dotlrn_communities \
+    -multirow com_list \
+    -key object_id \
+    -has_checkboxes \
+    -bulk_actions {"\#courses.associate\#" "associate-course" "\#courses.associate_to_com\#" }\
+    -bulk_action_method post \
+    -bulk_action_export_vars {
+	course_id
+    }\
+    -row_pretty_plural "[_ courses.dotlrn_classes]" \
+    -elements {
+	check_box {
+	    class "list-narrow"
+	    label "<input type=\"checkbox\" name=\"_dummy\" onclick=\"acs_ListCheckAll('dotlrn_communities', this.checked)\"                  title=\"\#courses.lable_title\#\">"
+	    display_template {
+		<if @com_list.rel@ eq 0>
+		    <input type="checkbox" name="object_id" value="@com_list.object_id@" \
+		    id="dotlrn_communities,@com_list.object_id@" \
+		    title="\#courses.title\#">
+		</if>
+		<else>
+		    <input type="checkbox" checked disabled>
+		</else>
+	    }
+	}
+	community  {
+	    label "[_ courses.com_name]"
+	    display_template {
+		<a href="@com_list.url@">@com_list.pretty_name@</a>
+	    }
+	}
+	associate {
+	    display_template {
+		<if @com_list.rel@ eq 0>
+	  	   <a href="associate-course?course_id=$course_id&object_id=@com_list.object_id@&return_url=$return_url" title="\#courses.associate_to_class\#\">#courses.associate#</a>
+		</if>
+		<else>
+		#courses.associated#
+                </else>
 	    }
 	}
     }

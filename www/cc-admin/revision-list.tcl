@@ -44,9 +44,6 @@ template::list::create \
 	key {
 	    label "[_ courses.course_key]"
 	    display_template {
-	      <if @course_list.delete_p@ eq 1>
- 	         <a href="delete-revision?revision_id=@course_list.course_id@&course_key=@course_list.course_key@"><img border=0 src="/resources/Delete16.gif"></a>
-		</if><else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</else>
 	      @course_list.course_key@
 	    }
 	}

@@ -76,15 +76,6 @@ ad_proc -private course_catalog::add_relation {
     db_exec_plsql add_relation { }
 }
 
-ad_proc -private course_catalog::has_relation {
-    -course_id:required
-} {
-    Returns  the class_id of dotlrn_class_instance related to course_id, returns 0 otherwise.
-    @course_id The id of the course in course_catalog
-} {
-    return [db_string has_relation { } -default 0]
-}
-
 ad_proc -private course_catalog::has_relation_rel_id {
     -course_id:required
 } {
@@ -92,6 +83,33 @@ ad_proc -private course_catalog::has_relation_rel_id {
     @course_id The id of the course in course_catalog
 } {
     return [db_string has_relation_rel_id { } -default 0]
+}
+
+ad_proc -private course_catalog::has_relation {
+    -course_id:required
+} {
+    Returns 1 if there is a class_id of dotlrn_class_instance related to course_id, returns 0 otherwise.
+    @course_id The id of the course in course_catalog
+} {
+    if { [db_string has_relation { } -default 0] == 0 } {
+	return 0
+    } else {
+	return 1
+    }
+}
+
+
+ad_proc -private course_catalog::com_has_relation {
+    -community_id:required
+} {
+    Returns 1 if there is a community of dotlrn related to course_id, returns 0 otherwise.
+    @community_id The id of the community in dotlrn
+} {
+    if { [db_string com_has_relation { } -default 0] == 0 } {
+	return 0
+    } else {
+	return 1
+    }
 }
 
 

@@ -41,11 +41,18 @@
 
 <fullquery name="course_catalog::has_relation.has_relation">      
       <querytext>
-            select object_id_two 
-	    from acs_rels where
-	    rel_type = 'course_catalog_rel' and object_id_one = :course_id
+            select count (rel_id)
+	    from acs_rels where rel_type = 'course_catalog_rel' and object_id_one = :course_id 
       </querytext>
 </fullquery>
+
+<fullquery name="course_catalog::com_has_relation.com_has_relation">      
+      <querytext>
+            select count (rel_id)
+	    from acs_rels where rel_type = 'course_catalog_rel' and object_id_two = :community_id
+      </querytext>
+</fullquery>
+
 
 <fullquery name="course_catalog::has_relation_rel_id.has_relation_rel_id">      
       <querytext>

@@ -9,4 +9,11 @@
         </querytext>
     </fullquery>
 
+    <fullquery name="relation">
+        <querytext>
+            select object_id_two as class_id from acs_rels
+	    where object_id_one = :course_id
+        </querytext>
+    </fullquery>
+
 </queryset>

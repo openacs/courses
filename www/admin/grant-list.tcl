@@ -30,6 +30,7 @@ ad_form -name search_user -form {
     }
     {user_email:text(text),optional
 	{label "[_ courses.search_user_email]"}
+	{help_text "[_ courses.search_email_help]"}
     }
 }
 
