@@ -1,15 +1,6 @@
 <?xml version="1.0"?>
 <queryset>
 
-<fullquery name="update_course_info">      
-      <querytext>
-            update course_catalog 
-            set course_key=:course_key, course_name=:course_name, course_info=:course_info, assessment_id=:assessment_id
-	    where course_id = :course_id
-      </querytext>
-</fullquery>
-
-
 <fullquery name="assessment">
       <querytext>
       	    select cr.title ,ci.item_id as assessment_id from 

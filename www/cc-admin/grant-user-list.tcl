@@ -14,12 +14,12 @@ ad_page_contract {
     creation_user:notnull
 }
 
-set user_id [auth::get_user_id]
+set user_id [ad_conn user_id]
 # course_catalog package_id
 set cc_package_id [apm_package_id_from_key "courses"]
 
 set page_title "[_ courses.search_users_to] $course_key"
-set context [list [list "/courses/cc-admin/grant-list" "[_ courses.grant] [_ courses.course_list]"] "[_ courses.search_u]"]
+set context [list [list course-list "[_ courses.course_list]"] "[_ courses.search_u]"]
 if {[string equal $return_url ""]} {
     set return_url "/courses/admin/grant-list"
 }
@@ -64,7 +64,7 @@ db_multirow -extend { privilege email } grant_list $query {} {
 }
 
 template::list::create \
-	-name grant_list \
+    -name grant_list \
     -multirow grant_list \
     -key p_user_id \
     -bulk_actions {"\#courses.grant\#" "grant-permission" "\#courses.grant_per\#"\

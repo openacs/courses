@@ -12,7 +12,7 @@ ad_page_contract {
 }
 
 if { [string equal $return_url ""]} {
-    set return_url "/courses/cc-admin"
+    set return_url "course-list"
 }
 
 set page_title ""
@@ -56,7 +56,7 @@ foreach attribute $attribute_list {
 		set aditional_elements [list options $asm_list]
 	    } else {
 		if { [string equal [lindex $attribute 2] "course_key"]} {
-		    set element_mode [list mode $mode]
+		    set element_mode [list mode edit]
 		} 
 	    }
 	}
@@ -79,14 +79,19 @@ foreach attribute $attribute_list {
 
 
 # Create the form
-ad_form -name add_course -export {return_url $return_url} -form {
+ad_form -name add_course -export {return_url $return_url } -form {
     course_id:key
 }
 
 
 ad_form -extend -name add_course -form $elements
 
-ad_form -extend -name add_course -new_data {
+ad_form -extend -name add_course -validate {
+    { course_key
+	{ [course_catalog::check_name -name $course_key] }
+	"[_ courses.name_already]"
+    }
+} -new_data {
     # New item and revision in the CR
     set folder_id [course_catalog::get_folder_id]
     set attribute_list [package_object_attribute_list -start_with course_catalog course_catalog]
@@ -98,7 +103,7 @@ ad_form -extend -name add_course -new_data {
 
     set item_id [content::item::new -name $course_key -parent_id $folder_id \
 		     -content_type "course_catalog" -creation_user $user_id \
-		     -attributes $form_attributes]
+		     -attributes $form_attributes -is_live t]
 
     # Grant admin privileges to the user over the item in the CR
     permission::grant -party_id $user_id -object_id $item_id  -privilege "admin"
@@ -107,23 +112,27 @@ ad_form -extend -name add_course -new_data {
     
     # New revision in the CR
     set folder_id [course_catalog::get_folder_id]
-    set item_id [course_catalog::get_item_id -name $course_key -parent_id $folder_id]
+    set item_id [course_catalog::get_item_id -revision_id $course_id]
     set attribute_list [package_object_attribute_list -start_with course_catalog course_catalog]
     set form_attributes [list]
     foreach attribute $attribute_list {
 	set attr_name [lindex $attribute 2]
 	lappend form_attributes [list $attr_name [set $attr_name]]
     }
-    set course_id [content::revision::new -item_id $item_id \
-		       -attributes $form_attributes -is_live t]
+
+    set course_id [content::revision::new -item_id $item_id -attributes $form_attributes]
+
+    # Set the new revision live  
+    course_catalog::set_live -revision_id $course_id
+
 
 } -new_request {
-    set context [list "[_ courses.add_course]"]
-    set page_title "[_ courses.add_course]"
+    set context [list [list course-list "[_ courses.course_list]"] "[_ courses.new_course]"]
+    set page_title "[_ courses.new_course]"
     set return_url "$return_url"
 
 } -edit_request {
-    set context [list "[_ courses.edit_course]"]
+    set context [list [list course-list "[_ courses.course_list]"] "[_ courses.edit_course]"]
     set page_title "[_ courses.edit_course]"
     set return_url "$return_url"
     db_1row get_course_info { }

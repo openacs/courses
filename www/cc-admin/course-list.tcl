@@ -7,10 +7,17 @@ ad_page_contract {
 
 }
 
-set user_id [auth::get_user_id]
+set user_id [ad_conn user_id]
 set context [list "[_ courses.course_list]"]
 set page_title "[_ courses.course_list]"
-set return_url "/courses/cc-admin/course-list"
+set return_url "course-list"
+
+set cc_package_id [apm_package_id_from_key "courses"]
+if {[permission::permission_p -party_id $user_id -object_id $cc_package_id -privilege "admin"]} {
+    set admin_p 1
+} else {
+    set admin_p 0
+}
 
 set asm_package_id [apm_package_id_from_key assessment]
 
@@ -21,56 +28,10 @@ if { [acs_user::site_wide_admin_p] } {
 }
 
 
-db_multirow -extend { asm_name rel } course_list $query {} {
+db_multirow -extend { asm_name rel item_id creation_user } course_list $query {} {
     set asm_name [db_string get_asm_name { } -default "[_ courses.not_associated]"]
+    set item_id [course_catalog::get_item_id -revision_id $course_id]
+    set creation_user [course_catalog::get_creation_user -object_id $item_id]
     set rel [course_catalog::has_relation -course_id $course_id]
 }
 
-template::list::create \
-    -name course_list \
-    -multirow course_list \
-    -key course_id \
-    -bulk_action_method post \
-    -bulk_action_export_vars {
-    }\
-    -row_pretty_plural "[_ courses.courses]" \
-    -elements {
-	key {
-	    label "[_ courses.course_key]"
-	    display_template {
-		<a href=add-edit-course?course_id=@course_list.course_id@&return_url=$return_url&mode=edit \
-		    title="[_ courses.new_ver]">\
-		    <img border=0 src=/resources/Edit16.gif></a>
-		<a href="revision-list?course_key=@course_list.course_key@&return_url=$return_url&course_id=@course_list.course_id@" title="[_ courses.see_all_rev]">@course_list.course_key@</a>
-	    }
-	}
-	name  {
-	    label "[_ courses.course_name]"
-	    display_template {
-		@course_list.course_name@
-	    }
-	}
-	info  {
-	    label "[_ courses.course_info]"
-	    display_template {
-		@course_list.course_info@
-	    }
-	}
-	assessment_id  {
-	    label "[_ courses.asm]:"
-	    display_template {
-		@course_list.asm_name@
-	    }
-	}
-	dotlrn {
-	    label "[_ courses.dotlrn]"
-	    display_template {
-		<if @course_list.rel@ eq 0>
-		#courses.no# (<a href="dotlrn-list?course_id=@course_list.course_id@&course_key=@course_list.course_key@&return_url=$return_url" title="\#courses.associate_this\#"><i>#courses.associate#</i></a>)
-		</if>
-		<else>
-		#courses.yes# (<a href="watch-association?course_id=@course_list.course_id@&course_key=@course_list.course_key@" title="\#courses.watch_assoc#"><i>#courses.watch#</i></a>)
-		</else>
-	    }
-	}
-    }

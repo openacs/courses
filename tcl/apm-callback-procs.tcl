@@ -61,9 +61,12 @@ ad_proc -private courses::package_install {
 	-column_spec "integer"
 
     set folder_id [content::folder::new -name "Course Catalog" -label "Course Catalog"]
-    
     content::folder::register_content_type -folder_id $folder_id -content_type "course_catalog" 
 
+    rel_types::new -role_one c_catalog_role -role_two dotlrn_class_role course_catalog_class_rel \
+	"Course Catalog Class" "Course Catalog Class" course_catalog 0 1 dotlrn_class_instance 0 1
+    rel_types::new -role_one c_catalog_role -role_two dotlrn_com_role course_catalog_dotcom_rel \
+	"Course Catalog Community" "Course Catalog Community" course_catalog 0 1 dotlrn_club 0 1
 }
 
 ad_proc -private courses::package_uninstall {

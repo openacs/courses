@@ -15,17 +15,12 @@ ad_proc -private course_catalog::get_folder_id { } {
 }
 
 ad_proc -private course_catalog::get_item_id { 
-    -name:required
-    {-parent_id ""}
+    -revision_id:required
  } {
     Returns the item_id in the CR with the name @name@ under folder course_catalog
-    @name@         The name of the item id in the CR
-    @parent_id@    The folder_id where the item is stored
+    @revision_id@  The revision_id to get the item id in the CR
 } {
-    if { [string equal $parent_id ""] } {
-	set parent_id [course_catalog::get_folder_id]
-    }
-    return [db_string get_item_from_name { } ]
+    return [db_string get_item_from_revision { } ]
 }
 
 ad_proc -public course_catalog::get_creation_user { 
@@ -38,11 +33,9 @@ ad_proc -public course_catalog::get_creation_user {
 }
 
 ad_proc -private course_catalog::set_live {
-    -name:required
     -revision_id:required
 } {
-    Sets the live_revision to @revision_id@ where name in cr_items equals @name@
-    @name@        The item name in CR
+    Sets the live_revision to @revision_id@.
     @revision_id@ The revision to set as live
 } {
     db_transaction {
@@ -51,27 +44,29 @@ ad_proc -private course_catalog::set_live {
 }
 
 
-ad_proc -private course_catalog::rename {
-    -item_id:required
+ad_proc -private course_catalog::check_name {
     -name:required
 } {
-    Sets the item name to @name@ for given item_id
-    @revision_id@ The item_id of the item in the CR
-    @name@        The new name for the item in CR
+    Checks if @name@ already exists in course_catalog table
+    @name@        The name of the course_key
 } {
-    db_transaction {
-	db_dml set_item_name { }
+    if { [string equal [db_string check_item_name { } -default -1] "-1"] } {
+	return 1
+    } else {
+	return 0
     }
 }
 
 
 ad_proc -private course_catalog::add_relation {
     -course_id:required
-    -class_id:required
+    -object_id:required
+    -type:required
 } {
-    Add a new relation between course_id from course_catalog and a class_instance_id from dotlrn
+    Add a new relation between course_id from course_catalog and object_id where relation type is type
     @course_id The id of the course in course_catalog
-    @class_id the class_instance_id of the class in dotlrn
+    @class_id  The class_instance_id of the class in dotlrn
+    @type@     The type of the relation
 } {
     db_exec_plsql add_relation { }
 }
@@ -92,6 +87,21 @@ ad_proc -private course_catalog::has_relation {
     @course_id The id of the course in course_catalog
 } {
     if { [db_string has_relation { } -default 0] == 0 } {
+	return 0
+    } else {
+	return 1
+    }
+}
+
+ad_proc -private course_catalog::relation_between {
+    -object_one:required
+    -object_two:required
+} {
+    Returns 1 if object_one is related to object_two, returns 0 otherwise.
+    @object_one
+    @object_two
+} {
+    if { [db_string relation_between { } -default 0] == 0 } {
 	return 0
     } else {
 	return 1

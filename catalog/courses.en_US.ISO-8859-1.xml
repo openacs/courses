@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <message_catalog package_key="courses" package_version="1.0d" locale="en_US" charset="ISO-8859-1">
 
-  <msg key="add_course">Add Course</msg>
   <msg key="asm">Assessment</msg>
   <msg key="associate">Associate</msg>
-  <msg key="associate_more">Associate more classes or communities</msg>
   <msg key="associate_this">Associate this course</msg>
   <msg key="associate_to_class">Associate to this class</msg>
   <msg key="associate_to_com">Associate to this community</msg>
@@ -17,14 +15,17 @@
   <msg key="course_catalog">Course Catalog Index</msg>
   <msg key="course_info">Course Info:</msg>
   <msg key="course_key">Course Key:</msg>
-  <msg key="course_list">Course List</msg>
+  <msg key="course_list">Your Course List</msg>
   <msg key="course_name">Course Name:</msg>
   <msg key="courses">Courses</msg>
   <msg key="create_new_ver">Create a new version of</msg>
   <msg key="dep_name">Department Name</msg>
   <msg key="description">Description</msg>
   <msg key="dotlrn">DotLRN</msg>
+  <msg key="dotlrn_classes">DotLRN Classes</msg>
+  <msg key="dotlrn_com">DotLRN Communities</msg>
   <msg key="dotlrn_list">DotLRN List</msg>
+  <msg key="edit_course">New Course Version</msg>
   <msg key="email">Email:</msg>
   <msg key="grant">Grant</msg>
   <msg key="grant_list">Grant List</msg>
@@ -34,6 +35,9 @@
   <msg key="is_assoc">is associated to:</msg>
   <msg key="label_title">Check/uncheck all rows</msg>
   <msg key="make_live">Make This Course Live</msg>
+  <msg key="manage_per">Manage Permissions</msg>
+  <msg key="name_already">Name Already Taken</msg>
+  <msg key="new_course">New Course</msg>
   <msg key="new_ver">New Course Version</msg>
   <msg key="no">No</msg>
   <msg key="not_allowed">Not Allowed</msg>
@@ -44,13 +48,13 @@
   <msg key="revisions">Revisions</msg>
   <msg key="revoke">Revoke</msg>
   <msg key="revoke_per">Revoke Permissions</msg>
-  <msg key="search_email_help">use only lower case and search for entire email or just part of it</msg>
-  <msg key="search_help">use only lower case and search for one first name or last name.</msg>
+  <msg key="search_email_help">search for entire email or just part of it</msg>
+  <msg key="search_help">search for one first name or last name.</msg>
   <msg key="search_u">Search Users</msg>
   <msg key="search_user">Search User Name:</msg>
   <msg key="search_user_email">Search for user Email:</msg>
   <msg key="search_users_to">Search Users To Grant Permissions On</msg>
-  <msg key="see_all_rev">See All Revisions</msg>
+  <msg key="see_all_rev">See All Versions</msg>
   <msg key="subject_name">Subject Name</msg>
   <msg key="term_name">Term Name</msg>
   <msg key="title">Check/uncheck this row, and select an action to perform below</msg>

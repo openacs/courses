@@ -8,10 +8,10 @@
   </querytext>
 </fullquery>
 
-<fullquery name="course_catalog::get_item_id.get_item_from_name">
+<fullquery name="course_catalog::get_item_id.get_item_from_revision">
   <querytext>
-        select item_id from cr_items
-        where name = :name and parent_id = :parent_id and content_type = 'course_catalog'
+        select item_id from cr_revisions
+        where revision_id = :revision_id
   </querytext>
 </fullquery>
 
@@ -27,29 +27,36 @@
       <querytext>
             update cr_items
             set live_revision = :revision_id
-	    where name = :name
+	    where item_id = ( select item_id from cr_revisions where revision_id = :revision_id )
       </querytext>
 </fullquery>
 
-<fullquery name="course_catalog::rename.set_item_name">      
+<fullquery name="course_catalog::check_name.check_item_name">      
       <querytext>
-            update cr_items
-            set name = :name
-	    where item_id = :item_id
+	    select course_id from course_catalog where course_key = :name
       </querytext>
 </fullquery>
 
 <fullquery name="course_catalog::has_relation.has_relation">      
       <querytext>
             select count (rel_id)
-	    from acs_rels where rel_type = 'course_catalog_rel' and object_id_one = :course_id 
+	    from acs_rels where object_id_one = :course_id 
       </querytext>
 </fullquery>
+
+<fullquery name="course_catalog::relation_between.relation_between">      
+      <querytext>
+            select rel_id
+	    from acs_rels where object_id_one = :object_one and object_id_two = :object_two
+      </querytext>
+</fullquery>
+
 
 <fullquery name="course_catalog::com_has_relation.com_has_relation">      
       <querytext>
             select count (rel_id)
-	    from acs_rels where rel_type = 'course_catalog_rel' and object_id_two = :community_id
+	    from acs_rels where rel_type = 'course_catalog_com_rel'
+	    and object_id_two = :community_id
       </querytext>
 </fullquery>
 
@@ -58,7 +65,8 @@
       <querytext>
             select rel_id
 	    from acs_rels where
-	    rel_type = 'course_catalog_rel' and object_id_one = :course_id
+	    (rel_type = 'course_catalog_class_rel' or rel_type = 'course_catalog_com_rel')
+	    and object_id_one = :course_id
       </querytext>
 </fullquery>
 

@@ -5,7 +5,8 @@
       <querytext>
 	    select course_id, course_key, course_name, course_info, assessment_id, live_revision
 	    from course_catalog, cr_items
-	    where course_key = :course_key and name= :course_key
+	    where item_id = :item_id and 
+	    course_id in (select revision_id from cr_revisions where item_id = :item_id )
       </querytext>
 </fullquery>
 

@@ -11,7 +11,7 @@ ad_page_contract {
 
 }
 
-set user_id [auth::get_user_id]
+set user_id [ad_conn user_id]
 # course_catalog package_id
 set cc_package_id [apm_package_id_from_key "courses"]
 
@@ -20,7 +20,7 @@ if {[string equal $return_url ""]} {
     set return_url "/courses/admin/grant-list"
 }
 
-set context [list $page_title]
+set context [list [list "../cc-admin/course-list" "[_ courses.course_list]"] $page_title]
 
 # To search for users
 ad_form -name search_user -form {

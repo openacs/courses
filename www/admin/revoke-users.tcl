@@ -19,4 +19,4 @@ foreach user $p_user_id {
 }
 
 
-ad_returnredirect "/courses/admin/grant-list?user_name=$user_name&user_email=$user_email"
+ad_returnredirect "grant-list?user_name=$user_name&user_email=$user_email"

@@ -6,7 +6,11 @@
 <h2>@course_key;noquote@ #courses.is_assoc#</h2>
 
 <multiple name="relations">
-    <include src="/packages/courses/lib/dotlrn-chunk" class_id=@relations.class_id@>
+    <if @relations.type@ eq "course_catalog_class_rel">
+    	<include src="/packages/courses/lib/dotlrn-chunk" class_id=@relations.object_id@>
+    </if>
+    <else>
+    	<include src="/packages/courses/lib/community-chunk" community_id=@relations.object_id@>
+    </else>
 </multiple>
 
-<a href="dotlrn-list?course_id=@course_id@&course_key=@course_key@">#courses.associate_more#</a>

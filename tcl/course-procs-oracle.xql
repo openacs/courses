@@ -6,7 +6,7 @@
      <querytext>
         begin
           :1 := acs_rel.new (
-                 rel_type => 'user_portrait_rel',
+                 rel_type => :type,
                  object_id_one => :course_id,
                  object_id_two => :class_id);
         end;

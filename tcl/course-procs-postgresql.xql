@@ -6,15 +6,16 @@
      <querytext>
 	select acs_rel__new (
         null,
-        'course_catalog_rel',
+        :type,
         :course_id,
-        :class_id,
+        :object_id,
         null,
         null,
         null
         )
      </querytext>
 </fullquery>
+
 
 <fullquery name="course_catalog::delete_relation.remove_relation">
      <querytext>

@@ -20,4 +20,4 @@ foreach user $p_user_id {
 }
 
 
-ad_returnredirect "/courses/cc-admin/grant-user-list?user_name=$user_name&user_email=$user_email&object_id=$object_id&creation_user=$creation_user&course_key=$course_key"
+ad_returnredirect "grant-user-list?user_name=$user_name&user_email=$user_email&object_id=$object_id&creation_user=$creation_user&course_key=$course_key"
