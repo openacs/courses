@@ -30,19 +30,19 @@ ad_proc -private courses::package_install {
     content::type::attribute::new \
 	-content_type "course_catalog" \
 	-attribute_name "course_key" \
-	-datatype "text" \
+	-datatype "string" \
 	-pretty_name "Course Key" \
 	-pretty_plural "Course Key" \
 	-sort_order 1 \
 	-column_spec "varchar(50)"
 
     content::type::attribute::new \
-	   -content_type "course_catalog" \
-	   -attribute_name "course_name" \
-	   -datatype "text" \
-	   -pretty_name "Course Name" \
-	   -sort_order 2 \
-	   -column_spec "varchar(200)"
+	-content_type "course_catalog" \
+	-attribute_name "course_name" \
+	-datatype "string" \
+	-pretty_name "Course Name" \
+	-sort_order 2 \
+	-column_spec "varchar(200)"
 
     content::type::attribute::new \
 	-content_type "course_catalog" \
@@ -50,7 +50,7 @@ ad_proc -private courses::package_install {
 	-datatype "text" \
 	-pretty_name "Course Information" \
 	-sort_order 3 \
-	-column_spec "varchar"
+	-column_spec "text"
 
     content::type::attribute::new \
 	-content_type "course_catalog" \
