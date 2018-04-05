@@ -40,7 +40,7 @@ db_foreach assessment { } {
     }
 }
 
-# Get a list of all the attributes asociated to course_catalog
+# Get a list of all the attributes associated to course_catalog
 set attribute_list [package_object_attribute_list -start_with course_catalog course_catalog]
 set elements ""
 
