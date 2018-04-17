@@ -191,12 +191,12 @@ ad_proc -private course_catalog::revoke_permissions {
     Revokes  admin permission to @party_id@ over @object_id@ and over all assessment_id created
     by @creation_user@
     @party_id@       The user_id to revoke permissions
-    @object_id@      The course_id over wich @party_id@ has permissions on
+    @object_id@      The course_id over which @party_id@ has permissions on
     @creation_user@  The user_id of the user that creates the course_id
 } {
     permission::revoke -party_id $party_id -object_id $object_id  -privilege "admin"
     set asm_package_id [apm_package_id_from_key assessment]
-    
+
     db_foreach assessment { } {
 	if { [permission::permission_p -party_id $creation_user -object_id $assessment_id -privilege admin] == 1 } {
 	    permission::revoke -party_id $party_id -object_id $assessment_id  -privilege "admin"
